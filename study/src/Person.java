@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by hiroki on 2017/04/23.
+ * @author FUJIOKA
  */
 public class Person {
     private static String birth;
