@@ -1,19 +1,30 @@
+import java.time.LocalDateTime;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-
+import java.time.ZoneId;
 /**
  * @author FUJIOKA
  */
 public class Person {
-    private static String birth;
+    private String name;
+    private String birth;
+    private LocalDateTime formatDate;
 
-    public Person(String birth) {
+    public Person(String name, String birth) {
+        this.name = name;
         this.birth = birth;
+
+        LocalDateTime formatDate = LocalDateTime.ofInstant(changeFormat().toInstant(), ZoneId.systemDefault());
+        this.formatDate = formatDate;
     }
 
-    public static Date ChangeFormat() {
+    public String getName() {
+        return name;
+    }
+
+
+    public Date changeFormat() {
         SimpleDateFormat birthday = new SimpleDateFormat("yyyy/MM/dd");
 
         Date formatDate = null;
@@ -28,22 +39,15 @@ public class Person {
         return formatDate;
     }
 
-
-    public static int CalcAge() {
-        Date now = new Date();
-        Calendar birthDayCal = Calendar.getInstance();
-        birthDayCal.setTime(ChangeFormat());
-        Calendar theDayCal = Calendar.getInstance();
-        theDayCal.setTime(now);
-        int yearDiff = theDayCal.get(Calendar.YEAR) - birthDayCal.get(Calendar.YEAR);
-        if (theDayCal.get(Calendar.MONTH) < birthDayCal.get(Calendar.MONTH)) {
+    public int calcAge() {
+        LocalDateTime now = LocalDateTime.now();
+        int yearDiff = now.getYear() - formatDate.getYear();
+        if (now.getMonthValue() < formatDate.getMonthValue()) {
             yearDiff--;
-        } else if (theDayCal.get(Calendar.DAY_OF_MONTH) < birthDayCal.get(Calendar.DAY_OF_MONTH)) {
+        } else if (now.getDayOfMonth() < formatDate.getDayOfMonth()) {
             yearDiff--;
         }
-
         return yearDiff;
     }
-
 
 }

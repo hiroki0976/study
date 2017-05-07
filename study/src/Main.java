@@ -9,12 +9,11 @@ public class Main {
 
         System.out.print("名前を入力してください：");
         String name = scan.next();
-
         System.out.print("誕生日を入力してください：");
         String birth = scan.next();
 
-        Person person = new Person(birth);
+        Person person = new Person(name, birth);
 
-        System.out.println(name + "の年齢は、" + Person.CalcAge() + "歳です。");
+        System.out.println(person.getName() + "の年齢は、" + person.calcAge() + "歳です。");
     }
 }
